@@ -16,13 +16,12 @@ politicsXpath = "//*[@id=\"main_content\"]/div/div[2]/div[1]/div[1]/div[1]/ul/li
 # 62
 
 politicsPage = driver.get(naverPolitics)
+politicsMainPage = driver.page_source
+soup = BeautifulSoup(politicsMainPage, 'html.parser')
 
+linkList = soup.select()
 driver.find_element_by_xpath(politicsXpath).click()
 driver.implicitly_wait(1)
 driver.find_element_by_xpath('//*[@id="articleBodyContents"]')
 html = driver.page_source
 
-# print (html)
-
-# driver.get(naverPolitics)
-# driver.implicitly_wait(1)
