@@ -8,8 +8,3 @@ for entry in parsed :
         parsed.remove(entry)
 
 print(parsed)
-
-
-
-
-
