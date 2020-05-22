@@ -16,9 +16,9 @@ driver.get(naverPolitics)
 politicsMainPage = driver.page_source
 soup = BeautifulSoup(politicsMainPage, 'html.parser')
 
-
 politicsLinkList = soup.select(".cluster_text_headline")
-articleList = []
+articleBodyList = []
+articleTitleList = []
 
 for i in range(len(politicsLinkList)):
 	politicsLinkList[i] = politicsLinkList[i].attrs['href']
@@ -26,5 +26,6 @@ for i in range(len(politicsLinkList)):
 for link in politicsLinkList:
 	driver.get(link)
 	soup = BeautifulSoup(driver.page_source, 'html.parser')
-	
-	articleList.append(soup.select("#articleBodyContents"))
+
+	articleBodyList.append(soup.select_one("#articleBodyContents"))
+	articleTitleList.append(soup.select_one("#articleTitle").string)
