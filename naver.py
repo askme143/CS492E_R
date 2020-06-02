@@ -42,8 +42,8 @@ for i in range(length) :
 	politicsLinkList += tempList2
 politicsLinkList = list(set(politicsLinkList[length:-1]))
 
-politicsArticleBodyList = []
 politicsArticleTitleList = []
+politicsArticleBodyList = []
 politicsCommentList = []
 
 for link in politicsLinkList:
@@ -51,12 +51,22 @@ for link in politicsLinkList:
 	html = driver.page_source
 	soup = BeautifulSoup(html, 'html.parser')
 
-	politicsArticleBodyList.append(soup.select_one("#articleBodyContents"))
-	politicsArticleTitleList.append(soup.select_one("#articleTitle").string)
-	
-	commentList = []
-	likes = []
-	dislikes = []
+	# articleCode = 
+	# articleType = "politics"
+	date = soup.select_one("span.t11").string
+	title = soup.select_one("#articleTitle").string
+	body = soup.select_one("#articleBodyContents")
+	# Todo: parse body
+	commentNum = soup.select_one("ul.u_cbox_comment_count.u_cbox_comment_count3 span.u_cbox_info_txt").string
+	if soup.select("div.u_cbox_slider.u_cbox_slider_open").attrs['style'] == "display:none" :
+		commentMaleRatio = ""
+		commentFemaleRatio = ""
+		commentAge = ""
+	else :
+		commentMaleRatio = soup.select_one("div.u_cbox_chart_male > span.u_cbox_chart_per").string
+		commentFemaleRatio = soup.select_one("div.u_cbox_chart_female > span.u_cbox_chart_per").string
+		tempCommentAge = soup.select("div.u_cbox_chart_age span.u_cbox_chart_per")
+		commentAge = [tempCommentAge[i].string for i in range(tempCommentAge)]
 
 	# Click 'More' bottons to get all comments
 	link = driver.find_element_by_css_selector("a.pi_btn_count").get_attribute('href')
@@ -64,31 +74,25 @@ for link in politicsLinkList:
 
 	time.sleep(1)
 
-	html = driver.page_source
-	soup = BeautifulSoup(html, 'html.parser')
+	soup = BeautifulSoup(driver.page_source, 'html.parser')
 	numComments = int(soup.select_one("div.u_cbox_head > a > span.u_cbox_count").string)
 	count = 0
-
 	while count < numComments:
 		time.sleep(0.5)
 		soup = BeautifulSoup(driver.page_source, 'html.parser')
-		for _ in range(min(numComments - count, 20)):
-			commentBox = "div.u_cbox_content_wrap > ul > li:nth-child(" + str(count + 1) + ")"
-			comment = soup.select_one(commentBox + " span.u_cbox_contents")
-			if comment:
-				commentList.append(comment.string)
-				print(comment.string)
 
-			count += 1
+		commentList = soup.select("span.u_cbox_contents")
+		likeList = soup.select("em.u_cbox_cnt_recomm")
+		dislikeList = soup.select("em.u_cbox_cnt_unrecomm")
+		replyNumList = soup.select("span.u_cbox_reply_cnt")
+
+		commentList2 = [commentList[i].string for i in range(len(commentList))]
+		likeList2 = [likeList[i].string for i in range(len(likeList))]
+		dislikeList2 = [dislikeList[i].string for i in range(len(dislikeList))]
+		replyNumList2 = [replyNumList[i].string for i in range(len(replyNumList))]
+
+		count += 20
 
 		if count < numComments:
 			driver.find_element_by_class_name("u_cbox_btn_more").click()
-
-	# print(len(commentList))
-		
-	# politicsCommentList.append(commentList)
-
-# for i in range(len(politicsArticleTitleList)):
-# 	print(politicsArticleBodyList[i])
-# 	print(politicsArticleTitleList[i])
-# 	print()
+	# Write on a csv file
