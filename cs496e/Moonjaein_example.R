@@ -5,7 +5,7 @@ week_to_date = function(nth_week) {
   start + nth_week*7
 }
 
-celeb_csv = read.csv("data/트와이스_data.csv")
+celeb_csv = read.csv("data/문재인_data.csv")
 View (celeb_csv)
 
 # Total emos per week
@@ -15,11 +15,6 @@ total_week = celeb_csv %>%
   group_by(nth_week) %>%
   summarize(mean_total = mean(total))
 plot(total_week)
-
-emos = celeb_csv %>%
-  filter(total>30) %>%
-  .[10:19] %>%
-pie(x = apply(emos, 2, mean))
 
 # Positive, negative emotions per week
 pos_neg_week = celeb_csv %>%
@@ -36,3 +31,4 @@ ratio_week = pos_neg_week %>%
   mutate(ratio = pos/(pos+neg)) %>%
   select (nth_week, ratio)
 plot(ratio_week)
+

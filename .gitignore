@@ -1,4 +1,3 @@
-*.csv
 *.png
 __pycache__/
 cs496e/data/

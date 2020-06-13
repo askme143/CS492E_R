@@ -7,7 +7,7 @@ week_to_date = function(nth_week) {
   start + nth_week*7
 }
 
-celeb_list = c('블랙핑크', '트와이스', '레드벨벳')
+celeb_list = c('방탄소년단', '엑소')
 celeb_csv = data.frame()
 for (celeb in celeb_list) {
   celeb_csv = rbind(celeb_csv, read.csv(paste0("data/", celeb, "_data.csv")))
@@ -25,7 +25,7 @@ total_week = celeb_csv %>%
 View(total_week)
 
 p = ggplot(total_week, aes(x = week_start, y = mean_total)) +
-  labs(color = "Girl_group", shape = "Girl_group", x = "Week",
+  labs(color = "Boy_group", shape = "Boy_group", x = "Week",
        y = "Average of total emos") + 
   theme_light(base_size = 12) +
   theme(panel.grid.minor = element_blank()) +
@@ -50,7 +50,7 @@ ratio_week = pos_neg_week %>%
   select (celeb, week_start, ratio)
 
 p = ggplot(ratio_week, aes(x = week_start, y = ratio, group = celeb, colour = celeb)) +
-  labs(color = "Girl_group", shape = "Girl_group", x = "Week",
+  labs(color = "Boy_group", shape = "Boy_group", x = "Week",
        y = "Positive emo ratio") + 
   theme_light(base_size = 12) +
   theme(panel.grid.minor = element_blank()) +

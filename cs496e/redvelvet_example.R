@@ -16,6 +16,11 @@ total_week = celeb_csv %>%
   summarize(mean_total = mean(total))
 plot(total_week)
 
+emos = celeb_csv %>%
+  filter(total>30) %>%
+  .[10:19]
+pie(x = apply(emos, 2, mean))
+
 # Positive, negative emotions per week
 pos_neg_week = celeb_csv %>%
   filter(total>30) %>%
