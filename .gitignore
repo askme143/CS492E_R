@@ -1,6 +1,5 @@
 *.png
 __pycache__/
-cs496e/data/
 cs496e/grpahs/
 cs496e/.Rproj.user/
 cs496e/.Rhistory
