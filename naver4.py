@@ -49,10 +49,6 @@ def get_link_of_celeb(celeb, driver):
 	y_start, m_start, d_start = '2019', '06', '02'
 	y_finish, m_finish, d_finish = '2019', '06', '08'
 	for nth_week in range(num_weeks):
-		if (nth_week < 26):
-			y_start, m_start, d_start = get_next_week(y_start, m_start, d_start)
-			y_finish, m_finish, d_finish = get_next_week(y_finish, m_finish, d_finish)
-			continue
 		# Search for the week
 		start = y_start +'.'+ m_start +'.'+ d_start
 		finish = y_finish +'.'+ m_finish +'.'+ d_finish
@@ -185,7 +181,7 @@ if __name__ == '__main__':
 	num_weeks = 52
 
 	# celeb_list = ["유재석", "블랙핑크", "아이유", "방탄소년단", "슈가"]
-	celeb_list = ["블랙핑크", "트와이스", "레드벨벳", "방탄소년단", "엑소"]
+	# celeb_list = ["블랙핑크", "트와이스", "레드벨벳", "방탄소년단", "엑소"]
 	# celeb_list = ["문재인", "조국", "홍준표", "나경원", "김정은", "아베", "트럼프"]
 	# celeb_list = ["가수 비", "박서준", "정경호", "조정석"]
 	# celeb_list = ["정준영", "승리", "용준형"]
