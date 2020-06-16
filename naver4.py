@@ -49,6 +49,10 @@ def get_link_of_celeb(celeb, driver):
 	y_start, m_start, d_start = '2019', '06', '02'
 	y_finish, m_finish, d_finish = '2019', '06', '08'
 	for nth_week in range(num_weeks):
+		if (nth_week < 26):
+			y_start, m_start, d_start = get_next_week(y_start, m_start, d_start)
+			y_finish, m_finish, d_finish = get_next_week(y_finish, m_finish, d_finish)
+			continue
 		# Search for the week
 		start = y_start +'.'+ m_start +'.'+ d_start
 		finish = y_finish +'.'+ m_finish +'.'+ d_finish
@@ -162,9 +166,12 @@ def get_driver():
 	driver = getattr(thread_local, 'driver', None)
 	if driver is None:
 		chromeOptions = webdriver.ChromeOptions()
-		# chromeOptions.add_argument("headless")
-		chromeOptions.add_argument("--disable-gpu")
-		chromeOptions.add_argument("--window-size=1920x1080")
+		chromeOptions.add_argument("headless")
+		chromeOptions.add_argument("disable-gpu")
+		chromeOptions.add_argument("window-size=1920x1080")
+		chromeOptions.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Whale/2.7.99.22 Safari/537.36")
+		chromeOptions.add_argument("lang=ko_KR")
+		chromeOptions.add_argument("start-maximized")
 
 		driver = webdriver.Chrome(chrome_options=chromeOptions)
 		setattr(thread_local, 'driver', driver)
@@ -178,31 +185,23 @@ if __name__ == '__main__':
 	num_weeks = 52
 
 	# celeb_list = ["유재석", "블랙핑크", "아이유", "방탄소년단", "슈가"]
-	# celeb_list = ["블랙핑크", "트와이스", "레드벨벳", "방탄소년단", "엑소"]
+	celeb_list = ["블랙핑크", "트와이스", "레드벨벳", "방탄소년단", "엑소"]
 	# celeb_list = ["문재인", "조국", "홍준표", "나경원", "김정은", "아베", "트럼프"]
 	# celeb_list = ["가수 비", "박서준", "정경호", "조정석"]
 	# celeb_list = ["정준영", "승리", "용준형"]
 	# celeb_list = "엄정화, 이상엽, 이다희, 박세영, 정혜성, 안소희, 송지효, 조보아, 고아라, 이준기, 강동원, 이성민, 윤제문, 수애, 김유정, \
 	# 	윤균상, 라미란, 김서형, 오나라, 최수종, 조정석, 이제훈, 권상우, 김희원, 김성균, 강소라, 안재홍, 김성오, 전여빈, 진서연, 김성령, 박신혜, \
 	# 	곽도원, 김대명, 안보현, 박서준, 김다미, 권나라, 유재명"
-	celeb_list = celeb_list.replace("\t", "")
-	celeb_list = celeb_list.split(", ")
+	# celeb_list = "워너원, NCT, 에이핑크, 여자친구, 마마무, 비투비, 위너, 몬스타엑스, 오마이걸, 아이즈원, 러블리즈, (여자)아이들, 뉴이스트, \
+	# 	아스트로, 투모로우바이투게더, 갓세븐, ITZY, 드림캐쳐, 스트레이키즈, 에버글로우"
+	# celeb_list = "거미, 김나영, 박화요비, 백아연, 백예린, 벤, 볼빨간사춘기, 소향, 손승연, 아이유, 알리, 에일리, 윤하, 이하이, 박정현, 백지영, \
+	# 	양희은, 엄정화, 이소라, 한영애"
+	# celeb_list = celeb_list.replace("\t", "")
+	# celeb_list = celeb_list.split(", ")
 	fininsh_list = []
 	
 	emo_type_dict = {"좋아요": 0, "훈훈해요": 1, "슬퍼요": 2, "화나요": 3, "후속기사 원해요": 4, \
 		"응원해요": 5, "축하해요": 6, "기대해요": 7, "놀랐어요": 8, "팬이에요": 9}
 	emo_idx_offset = 9
 
-	# epoch_size = 8
-	# epoch_list = []
-	# i = 0
-	# while i < len(celeb_list):
-	# 	epoch_list.append(celeb_list[i:(i+epoch_size-1)])
-	# 	i += epoch_size
-
-
-	# # Make CELEB_data.csv
-	# for i in range(len(epoch_list)):
-	# 	do_thread_collect_data(epoch_list[i])
-	# 	print ("epoch: ", i)
 	do_thread_collect_data(celeb_list)
