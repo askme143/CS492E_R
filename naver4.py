@@ -120,6 +120,8 @@ def make_row_for_link(link, celeb, nth_week, emo_idx_offset, emo_type_dict, driv
 			article_type = ''
 		date = ('dummy ' + driver.find_element_by_css_selector("span.t11").text).split()
 	
+	title = title.encode('cp949', 'ignore').decode('cp949')
+
 	# Get date
 	time_ = date[3]
 	time_ = time_.split(':')
@@ -143,7 +145,7 @@ def do_thread_collect_data (celeb_list):
 			execution.result()
 
 def do_collect_data (celeb):
-	fa = open(str(celeb) + '_data' + '.csv', 'a', encoding='UTF-8', newline='')
+	fa = open(str(celeb) + '_data' + '.csv', 'a', encoding='CP949', newline='')
 	writer_csv = csv.writer(fa)
 
 	driver = get_driver()
@@ -151,7 +153,10 @@ def do_collect_data (celeb):
 	link_list, week_list = get_link_of_celeb(celeb, driver)
 
 	for i in range(len(link_list)):
-		new_row = make_row_for_link(link_list[i], celeb, week_list[i], emo_idx_offset, emo_type_dict, driver)
+		try:
+			new_row = make_row_for_link(link_list[i], celeb, week_list[i], emo_idx_offset, emo_type_dict, driver)
+		except NoSuchElementException:
+			continue
 		if new_row != None:
 			writer_csv.writerow(new_row)
 	fininsh_list.append(celeb)
@@ -162,10 +167,10 @@ def get_driver():
 	driver = getattr(thread_local, 'driver', None)
 	if driver is None:
 		chromeOptions = webdriver.ChromeOptions()
-		chromeOptions.add_argument("headless")
+		# chromeOptions.add_argument("headless")
 		chromeOptions.add_argument("disable-gpu")
 		chromeOptions.add_argument("window-size=1920x1080")
-		chromeOptions.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Whale/2.7.99.22 Safari/537.36")
+		# chromeOptions.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.163 Whale/2.7.99.22 Safari/537.36")
 		chromeOptions.add_argument("lang=ko_KR")
 		chromeOptions.add_argument("start-maximized")
 
@@ -192,8 +197,13 @@ if __name__ == '__main__':
 	# 	아스트로, 투모로우바이투게더, 갓세븐, ITZY, 드림캐쳐, 스트레이키즈, 에버글로우"
 	# celeb_list = "거미, 김나영, 박화요비, 백아연, 백예린, 벤, 볼빨간사춘기, 소향, 손승연, 아이유, 알리, 에일리, 윤하, 이하이, 박정현, 백지영, \
 	# 	양희은, 엄정화, 이소라, 한영애"
-	# celeb_list = celeb_list.replace("\t", "")
-	# celeb_list = celeb_list.split(", ")
+	# celeb_list = "거미, 김나영, 백아연, 백예린, 벤, 볼빨간사춘기, 소향, 손승연, 아이유, 에일리, 백지영, 윤하, 이하이, 박정현, 이소라, \
+	# 	박효신, 이적, 임창정, 임재범, 박완규, 김태원, 김경호, 홍진영, 하현우, 김진호, 장범준, 폴킴, 윤종신, 임영웅, 영탁, \
+	# 	유재석, 박나래, 백종원, 박명수, 정준하, 강호동, 이광수, 김종국, 이영자, 김숙"
+	# celeb_list = "벤, 이적, 임창정"
+	celeb_list = "장성규, 김민아, 박준형, 장민철, 보겸"
+	celeb_list = celeb_list.replace("\t", "")
+	celeb_list = celeb_list.split(", ")
 	fininsh_list = []
 	
 	emo_type_dict = {"좋아요": 0, "훈훈해요": 1, "슬퍼요": 2, "화나요": 3, "후속기사 원해요": 4, \
