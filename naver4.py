@@ -156,7 +156,7 @@ def do_collect_data (celeb):
 		try:
 			new_row = make_row_for_link(link_list[i], celeb, week_list[i], emo_idx_offset, emo_type_dict, driver)
 		except NoSuchElementException:
-			continue
+			continue..
 		if new_row != None:
 			writer_csv.writerow(new_row)
 	fininsh_list.append(celeb)
