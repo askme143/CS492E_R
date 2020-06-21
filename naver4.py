@@ -1,3 +1,4 @@
+# coding=<utf-8>
 import os
 import csv
 import time
@@ -156,7 +157,7 @@ def do_collect_data (celeb):
 		try:
 			new_row = make_row_for_link(link_list[i], celeb, week_list[i], emo_idx_offset, emo_type_dict, driver)
 		except NoSuchElementException:
-			continue..
+			continue
 		if new_row != None:
 			writer_csv.writerow(new_row)
 	fininsh_list.append(celeb)
@@ -201,7 +202,9 @@ if __name__ == '__main__':
 	# 	박효신, 이적, 임창정, 임재범, 박완규, 김태원, 김경호, 홍진영, 하현우, 김진호, 장범준, 폴킴, 윤종신, 임영웅, 영탁, \
 	# 	유재석, 박나래, 백종원, 박명수, 정준하, 강호동, 이광수, 김종국, 이영자, 김숙"
 	# celeb_list = "벤, 이적, 임창정"
-	celeb_list = "장성규, 김민아, 박준형, 장민철, 보겸"
+	# celeb_list = "장성규, 김민아, 박준형, 장민철, 보겸"
+	# celeb_list = "방탄소년단 RM, 방탄소년단 진, 방탄소년단 슈가, 방탄소년단 제이홉, 방탄소년단 지민, 방탄소년단 뷔, 방탄소년단 정국, 엑소 수호, 엑소 찬열, 엑소 카이, 엑소 디오, 엑소 백현, 엑소 세훈, 엑소 시우민, 엑소 첸, 엑소 레이, 블랙핑크 지수, 블랙핑크 제니, 블랙핑크 로제, 블랙핑크 리사, 트와이스 나연, 트와이스 정연, 트와이스 모모, 트와이스 사나, 트와이스 지효, 트와이스 미나, 트와이스 다현, 트와이스 채영, 트와이스 쯔위, 레드벨벳 웬디, 레드벨벳 아이린, 레드벨벳 슬기, 레드벨벳 조이, 레드벨벳 예리"
+	# celeb_list = "방탄소년단 RM, 방탄소년단 진, 방탄소년단 슈가, 방탄소년단 제이홉, 방탄소년단 지민, 방탄소년단 뷔, 방탄소년단 정국, 엑소 수호, 엑소 찬열, 엑소 카이, 엑소 디오, 엑소 백현, 엑소 세훈, 엑소 시우민, 엑소 첸, 엑소 레이, 블랙핑크 지수, 블랙핑크 제니, 블랙핑크 로제, 블랙핑크 리사, 트와이스 나연, 트와이스 정연, 트와이스 모모, 트와이스 사나, 트와이스 지효, 트와이스 미나, 트와이스 다현, 트와이스 채영, 트와이스 쯔위, 레드벨벳 웬디, 레드벨벳 아이린, 레드벨벳 슬기, 레드벨벳 조이, 레드벨벳 예리"
 	celeb_list = celeb_list.replace("\t", "")
 	celeb_list = celeb_list.split(", ")
 	fininsh_list = []
