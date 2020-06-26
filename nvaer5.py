@@ -46,12 +46,16 @@ def get_link_of_celeb(celeb, driver):
 
 	# Search celeb
 	search_url = 'https://search.naver.com/search.naver?where=news&query=' + celeb
+	search_url = 'https://search.naver.com/search.naver?where=news&query=' + '방탄소년단 랩몬스터'
 	
 	y_start, m_start, d_start = '2017', '01', '01'
 	y_finish, m_finish, d_finish = '2017', '01', '07'
 	nth_week = 0
 	while True:
 		# Search for the week
+		if (y_start, m_start, d_start) == ('2017', '11', '19'):
+			search_url = 'https://search.naver.com/search.naver?where=news&query=' + celeb
+
 		start = y_start +'.'+ m_start +'.'+ d_start
 		finish = y_finish +'.'+ m_finish +'.'+ d_finish
 		search_url_week = search_url + '&pd=3&ds=' + start + '&de=' + finish
@@ -189,9 +193,12 @@ def get_driver():
 
 if __name__ == '__main__':
 	# Variables
-	celeb_list = "엑소, 트와이스, 레드벨벳, 블랙핑크"
+	celeb_list = "방탄소년단 RM"
+	celeb_list = "방탄소년단 RM, 방탄소년단 진, 방탄소년단 슈가, 방탄소년단 제이홉, 방탄소년단 지민, 방탄소년단 뷔, 방탄소년단 정국"
 	celeb_list = celeb_list.replace("\t", "")
 	celeb_list = celeb_list.split(", ")
+
+	print(celeb_list)
 
 	row_list = []
 	search_result_list = []

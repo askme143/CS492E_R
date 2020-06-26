@@ -47,8 +47,8 @@ def get_link_of_celeb(celeb, driver):
 	# Search celeb
 	search_url = 'https://search.naver.com/search.naver?where=news&query=' + celeb
 	
-	y_start, m_start, d_start = '2019', '06', '02'
-	y_finish, m_finish, d_finish = '2019', '06', '08'
+	y_start, m_start, d_start = '2020', '03', '01'
+	y_finish, m_finish, d_finish = '2020', '03', '07'
 	for nth_week in range(num_weeks):
 		# Search for the week
 		start = y_start +'.'+ m_start +'.'+ d_start
@@ -146,7 +146,7 @@ def do_thread_collect_data (celeb_list):
 			execution.result()
 
 def do_collect_data (celeb):
-	fa = open(str(celeb) + '_data' + '.csv', 'a', encoding='CP949', newline='')
+	fa = open(str(celeb) + '_data_p' + '.csv', 'a', encoding='CP949', newline='')
 	writer_csv = csv.writer(fa)
 
 	driver = get_driver()
@@ -184,7 +184,7 @@ def get_driver():
 
 if __name__ == '__main__':
 	# Variables
-	num_weeks = 52
+	num_weeks = 13
 
 	# celeb_list = ["유재석", "블랙핑크", "아이유", "방탄소년단", "슈가"]
 	# celeb_list = ["블랙핑크", "트와이스", "레드벨벳", "방탄소년단", "엑소"]
@@ -205,6 +205,7 @@ if __name__ == '__main__':
 	# celeb_list = "장성규, 김민아, 박준형, 장민철, 보겸"
 	# celeb_list = "방탄소년단 RM, 방탄소년단 진, 방탄소년단 슈가, 방탄소년단 제이홉, 방탄소년단 지민, 방탄소년단 뷔, 방탄소년단 정국, 엑소 수호, 엑소 찬열, 엑소 카이, 엑소 디오, 엑소 백현, 엑소 세훈, 엑소 시우민, 엑소 첸, 엑소 레이, 블랙핑크 지수, 블랙핑크 제니, 블랙핑크 로제, 블랙핑크 리사, 트와이스 나연, 트와이스 정연, 트와이스 모모, 트와이스 사나, 트와이스 지효, 트와이스 미나, 트와이스 다현, 트와이스 채영, 트와이스 쯔위, 레드벨벳 웬디, 레드벨벳 아이린, 레드벨벳 슬기, 레드벨벳 조이, 레드벨벳 예리"
 	# celeb_list = "방탄소년단 RM, 방탄소년단 진, 방탄소년단 슈가, 방탄소년단 제이홉, 방탄소년단 지민, 방탄소년단 뷔, 방탄소년단 정국, 엑소 수호, 엑소 찬열, 엑소 카이, 엑소 디오, 엑소 백현, 엑소 세훈, 엑소 시우민, 엑소 첸, 엑소 레이, 블랙핑크 지수, 블랙핑크 제니, 블랙핑크 로제, 블랙핑크 리사, 트와이스 나연, 트와이스 정연, 트와이스 모모, 트와이스 사나, 트와이스 지효, 트와이스 미나, 트와이스 다현, 트와이스 채영, 트와이스 쯔위, 레드벨벳 웬디, 레드벨벳 아이린, 레드벨벳 슬기, 레드벨벳 조이, 레드벨벳 예리"
+	celeb_list = "방탄소년단 지민, 방탄소년단 슈가, 엑소 백현, 강다니엘, 오마이걸 아린, 방탄소년단 뷔, 박지훈, 소녀시대 태연, 빅뱅 지드래곤, 오마이걸 효정, 슈퍼주니어 김희철, 방탄소년단 RM, 마마무 화사, 마마무 솔라, 방탄소년단 진, 방탄소년단 정국, 뉴이스트 황민현, AOA 설현, 오마이걸 유아, 위너 강승윤"
 	celeb_list = celeb_list.replace("\t", "")
 	celeb_list = celeb_list.split(", ")
 	fininsh_list = []

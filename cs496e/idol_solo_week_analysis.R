@@ -58,8 +58,8 @@ for (celeb in celeb_list$idol_solo){
   # Positive ratio per week
   ratio_week = pos_neg_week %>%
     select (nth_week, ratio)
-  png(filename=paste0("idol_solo_plot/","주간긍정비율_", celeb, ".png"))
-  plot(ratio_week, main=paste(celeb, "주간 긍정 비율"), ylim = c(0, 1))
+  png(filename=paste0("idol_solo_plot/","주간호감도_", celeb, ".png"))
+  plot(ratio_week, main=paste(celeb, "주간 호감도"), ylim = c(0, 1))
   dev.off()
   
   total_week_ts = total_week
